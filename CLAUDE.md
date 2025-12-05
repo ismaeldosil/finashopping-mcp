@@ -142,9 +142,13 @@ El MCP Server consume la API REST del backend:
 | GET /api/v1/guarantees | Garantías de alquiler |
 | GET /api/v1/benefits | Beneficios y descuentos |
 
-**Base URLs:**
+**Backend API URLs:**
 - Producción: `https://finashopping-backend-production.up.railway.app`
 - Local: `http://localhost:8787`
+
+**MCP Server URLs:**
+- Producción: `https://finashopping-mcp-production.up.railway.app`
+- Local: `http://localhost:3000` (HTTP transport) o stdio (default)
 
 ## Variables de Entorno
 
