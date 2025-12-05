@@ -176,8 +176,18 @@ Los logs se escriben a stderr. En desarrollo puedes verlos en la terminal.
 
 MIT
 
+## URLs
+
+| Servicio | URL |
+|----------|-----|
+| Frontend | https://finashopping-frontend.vercel.app |
+| Backend API | https://finashopping-backend-production.up.railway.app |
+| MCP Server | https://finashopping-mcp-production.up.railway.app |
+| API Docs | https://finashopping-backend-production.up.railway.app/api-docs |
+
 ## Links
 
 - [FinaShopping Web](https://finashopping-frontend.vercel.app)
-- [Backend API](https://finashopping-backend-production.up.railway.app/api-docs)
+- [Backend API Docs](https://finashopping-backend-production.up.railway.app/api-docs)
 - [MCP Protocol](https://modelcontextprotocol.io)
+- [GitHub Repo](https://github.com/ismaeldosil/finashopping-mcp)
