@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "finashopping": {
+      "command": "npx",
+      "args": ["finashopping-mcp"],
+      "env": {
+        "FINASHOPPING_API_URL": "https://finashopping-backend-production.up.railway.app"
+      }
+    }
+  }
+}
