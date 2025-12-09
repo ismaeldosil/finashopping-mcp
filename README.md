@@ -1,5 +1,12 @@
 # FinaShopping MCP Server
 
+[![CI](https://github.com/ismaeldosil/finashopping-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/ismaeldosil/finashopping-mcp/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/ismaeldosil/finashopping-mcp/branch/main/graph/badge.svg)](https://codecov.io/gh/ismaeldosil/finashopping-mcp)
+[![npm version](https://img.shields.io/npm/v/finashopping-mcp.svg)](https://www.npmjs.com/package/finashopping-mcp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.5+-blue.svg)](https://www.typescriptlang.org/)
+
 MCP Server para interactuar con productos financieros uruguayos desde Claude Desktop.
 
 ## Instalación Rápida
