@@ -1,36 +1,36 @@
 # CLAUDE.md - FinaShopping MCP Server
 
-Guía para desarrollo del MCP Server de FinaShopping.
+Development guide for the FinaShopping MCP Server.
 
 ## Stack
 
-| Tecnología | Versión | Uso |
+| Technology | Version | Use |
 |------------|---------|-----|
 | Node.js | 20+ | Runtime |
 | TypeScript | 5.5+ | Language (strict mode) |
-| @modelcontextprotocol/sdk | 1.x | MCP SDK oficial |
+| @modelcontextprotocol/sdk | 1.x | Official MCP SDK |
 | Zod | 3.25+ | Schema validation |
-| Axios | 1.7+ | HTTP client para backend API |
+| Axios | 1.7+ | HTTP client for backend API |
 | tsx | 4.x | Dev runner |
 | Vitest | 2.x | Testing |
 
-## ¿Qué es MCP?
+## What is MCP?
 
-**Model Context Protocol (MCP)** es un protocolo abierto de Anthropic que permite conectar asistentes de IA (como Claude) con fuentes de datos y herramientas externas.
+**Model Context Protocol (MCP)** is an open protocol from Anthropic that allows connecting AI assistants (like Claude) with external data sources and tools.
 
-Este MCP Server permite a usuarios de Claude Desktop:
-- Buscar préstamos, tarjetas y seguros uruguayos
-- Calcular cuotas de préstamos
-- Comparar productos financieros
-- Obtener información del mercado financiero uruguayo
+This MCP Server allows Claude Desktop users to:
+- Search for Uruguayan loans, cards, and insurance
+- Calculate loan payments
+- Compare financial products
+- Get information about the Uruguayan financial market
 
-## Desarrollo
+## Development
 
 ```bash
-npm install          # Instalar dependencias
-npm run dev          # Desarrollo con tsx (stdio)
-npm run build        # Compilar TypeScript
-npm start            # Ejecutar server compilado
+npm install          # Install dependencies
+npm run dev          # Development with tsx (stdio)
+npm run build        # Compile TypeScript
+npm start            # Run compiled server
 npm test             # Unit tests (Vitest)
 npm run lint         # ESLint
 npm run type-check   # TypeScript check
@@ -96,10 +96,10 @@ finashopping-mcp/
 └── README.md
 ```
 
-## Conceptos Clave de MCP
+## Key MCP Concepts
 
 ### Tools
-Funciones que Claude puede invocar para realizar acciones o consultar datos.
+Functions that Claude can invoke to perform actions or query data.
 
 ```typescript
 server.registerTool(
@@ -111,14 +111,14 @@ server.registerTool(
     outputSchema: { result: z.string() }
   },
   async ({ param }) => {
-    // Implementación
+    // Implementation
     return { content: [{ type: 'text', text: 'result' }] };
   }
 );
 ```
 
 ### Resources
-Datos estáticos o semi-estáticos que Claude puede leer.
+Static or semi-static data that Claude can read.
 
 ```typescript
 server.registerResource(
@@ -132,7 +132,7 @@ server.registerResource(
 ```
 
 ### Prompts
-Templates predefinidos para guiar conversaciones.
+Predefined templates to guide conversations.
 
 ```typescript
 server.registerPrompt(
@@ -153,39 +153,39 @@ server.registerPrompt(
 
 ## Backend API
 
-El MCP Server consume la API REST del backend:
+The MCP Server consumes the backend REST API:
 
-| Endpoint | Descripción |
+| Endpoint | Description |
 |----------|-------------|
-| GET /api/v1/loans | Catálogo de préstamos |
-| GET /api/v1/credit-cards | Tarjetas de crédito |
-| GET /api/v1/insurances | Seguros |
-| GET /api/v1/guarantees | Garantías de alquiler |
-| GET /api/v1/benefits | Beneficios y descuentos |
+| GET /api/v1/loans | Loan catalog |
+| GET /api/v1/credit-cards | Credit cards |
+| GET /api/v1/insurances | Insurance |
+| GET /api/v1/guarantees | Rental guarantees |
+| GET /api/v1/benefits | Benefits and discounts |
 
 **Backend API URLs:**
-- Producción: `https://finashopping-backend-production.up.railway.app`
+- Production: `https://finashopping-backend-production.up.railway.app`
 - Local: `http://localhost:8787`
 
 **MCP Server URLs:**
-- Producción: `https://finashopping-mcp-production.up.railway.app`
-- Local: `http://localhost:3000` (HTTP transport) o stdio (default)
+- Production: `https://finashopping-mcp-production.up.railway.app`
+- Local: `http://localhost:3000` (HTTP transport) or stdio (default)
 
-## Variables de Entorno
+## Environment Variables
 
 ```bash
 FINASHOPPING_API_URL=https://finashopping-backend-production.up.railway.app
 ```
 
-## Agentes
+## Agents
 
-Ver `.claude/agents/mcp/README.md` en `finashopping-docs` para lista completa.
+See `.claude/agents/mcp/README.md` in `finashopping-docs` for full list.
 
-| Agente | Cuándo usar |
-|--------|-------------|
-| @mcp-developer | Crear tools, resources, prompts |
-| @mcp-tester | Tests con Vitest |
-| @code-reviewer | Review antes de commit |
+| Agent | When to use |
+|-------|-------------|
+| @mcp-developer | Create tools, resources, prompts |
+| @mcp-tester | Tests with Vitest |
+| @code-reviewer | Review before commit |
 
 ## Testing
 
@@ -221,7 +221,7 @@ GitHub Actions runs on every push/PR to `main` and `develop`:
 - Codecov upload
 - Build verification
 
-## Instalación en Claude Desktop
+## Installation in Claude Desktop
 
 ### macOS
 ```json
@@ -249,9 +249,9 @@ GitHub Actions runs on every push/PR to `main` and `develop`:
 }
 ```
 
-## Documentación
+## Documentation
 
-| Doc | Ruta |
+| Doc | Path |
 |-----|------|
 | MCP SDK | https://github.com/modelcontextprotocol/typescript-sdk |
 | MCP Specification | https://modelcontextprotocol.io/specification |
@@ -260,14 +260,14 @@ GitHub Actions runs on every push/PR to `main` and `develop`:
 
 ## Gitflow
 
-**OBLIGATORIO** seguir Gitflow. Ver: `../finashopping-docs/shared/guides/gitflow.md`
+**REQUIRED** to follow Gitflow. See: `../finashopping-docs/shared/guides/gitflow.md`
 
 ```bash
-# Flujo rápido
+# Quick flow
 git checkout develop && git pull
-git checkout -b feature/<issue>-descripcion
-# ... desarrollar ...
-git commit -m "feat(mcp): descripción - Closes #<issue>"
+git checkout -b feature/<issue>-description
+# ... develop ...
+git commit -m "feat(mcp): description - Closes #<issue>"
 gh pr create && gh pr merge --squash
 git checkout main && git pull
 git checkout develop && git merge main && git push
