@@ -1,6 +1,7 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
-import { loans } from '../data/test-data.js';
+import { fetchLoans } from '../api/client.js';
+import type { Loan } from '../api/types.js';
 
 /**
  * Calculate monthly payment using French amortization system
@@ -11,6 +12,14 @@ function calculateFrenchPayment(principal: number, annualRate: number, months: n
   if (monthlyRate === 0) return principal / months;
   return principal * (monthlyRate * Math.pow(1 + monthlyRate, months)) /
          (Math.pow(1 + monthlyRate, months) - 1);
+}
+
+/**
+ * Fetch loans from API
+ */
+async function getLoans(): Promise<Loan[]> {
+  const response = await fetchLoans();
+  return response.loans;
 }
 
 export function registerLoanTools(server: McpServer): void {
@@ -24,6 +33,7 @@ export function registerLoanTools(server: McpServer): void {
       type: z.enum(['personal', 'auto', 'hipotecario']).optional().describe('Tipo de préstamo')
     },
     async ({ amount, term, type }) => {
+      const loans = await getLoans();
       let filteredLoans = [...loans];
 
       // Filter by amount (±50% range)
@@ -106,6 +116,7 @@ export function registerLoanTools(server: McpServer): void {
       loanIds: z.array(z.number()).min(2).max(5).describe('IDs de préstamos a comparar')
     },
     async ({ loanIds }) => {
+      const loans = await getLoans();
       const selectedLoans = loans.filter(loan => loanIds.includes(loan.id));
 
       if (selectedLoans.length < 2) {
@@ -163,6 +174,7 @@ export function registerLoanTools(server: McpServer): void {
       loanId: z.number().describe('ID del préstamo')
     },
     async ({ loanId }) => {
+      const loans = await getLoans();
       const loan = loans.find(l => l.id === loanId);
 
       if (!loan) {
