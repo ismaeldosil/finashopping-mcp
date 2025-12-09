@@ -1,6 +1,15 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
-import { creditCards } from '../data/test-data.js';
+import { fetchCreditCards } from '../api/client.js';
+import type { CreditCard } from '../api/types.js';
+
+/**
+ * Fetch credit cards from API
+ */
+async function getCreditCards(): Promise<CreditCard[]> {
+  const response = await fetchCreditCards();
+  return response.creditCards;
+}
 
 export function registerCardTools(server: McpServer): void {
   // Tool: search-credit-cards
@@ -12,6 +21,7 @@ export function registerCardTools(server: McpServer): void {
       maxAnnualFee: z.number().min(0).optional().describe('Costo anual máximo en pesos uruguayos')
     },
     async ({ network, maxAnnualFee }) => {
+      const creditCards = await getCreditCards();
       let filteredCards = [...creditCards];
 
       // Filter by network
@@ -51,6 +61,7 @@ export function registerCardTools(server: McpServer): void {
       cardId: z.number().describe('ID de la tarjeta')
     },
     async ({ cardId }) => {
+      const creditCards = await getCreditCards();
       const card = creditCards.find(c => c.id === cardId);
 
       if (!card) {
