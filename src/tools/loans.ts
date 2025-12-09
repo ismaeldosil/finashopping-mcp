@@ -5,7 +5,7 @@ import type { Loan } from '../api/types.js';
 
 /**
  * Calculate monthly payment using French amortization system
- * Formula: Cuota = P * [r(1+r)^n] / [(1+r)^n - 1]
+ * Formula: Payment = P * [r(1+r)^n] / [(1+r)^n - 1]
  */
 function calculateFrenchPayment(principal: number, annualRate: number, months: number): number {
   const monthlyRate = annualRate / 100 / 12;
@@ -26,11 +26,11 @@ export function registerLoanTools(server: McpServer): void {
   // Tool: search-loans
   server.tool(
     'search-loans',
-    'Buscar préstamos disponibles en instituciones financieras uruguayas. Permite filtrar por monto, plazo y tipo.',
+    'Search available loans from Uruguayan financial institutions. Filter by amount, term, and type. | Buscar préstamos disponibles en instituciones financieras uruguayas. Filtrar por monto, plazo y tipo.',
     {
-      amount: z.number().positive().optional().describe('Monto del préstamo en pesos uruguayos'),
-      term: z.number().min(6).max(360).optional().describe('Plazo en meses'),
-      type: z.enum(['personal', 'auto', 'hipotecario']).optional().describe('Tipo de préstamo')
+      amount: z.number().positive().optional().describe('Loan amount in Uruguayan pesos | Monto del préstamo en pesos uruguayos'),
+      term: z.number().min(6).max(360).optional().describe('Term in months | Plazo en meses'),
+      type: z.enum(['personal', 'auto', 'hipotecario']).optional().describe('Loan type | Tipo de préstamo')
     },
     async ({ amount, term, type }) => {
       const loans = await getLoans();
@@ -80,11 +80,11 @@ export function registerLoanTools(server: McpServer): void {
   // Tool: calculate-loan-payment
   server.tool(
     'calculate-loan-payment',
-    'Calcular la cuota mensual de un préstamo usando el sistema francés (cuota fija). Devuelve cuota, total a pagar e intereses.',
+    'Calculate monthly loan payment using the French amortization system (fixed payment). Returns payment, total amount, and interest. | Calcular la cuota mensual de un préstamo usando el sistema francés (cuota fija). Devuelve cuota, total a pagar e intereses.',
     {
-      amount: z.number().positive().describe('Monto del préstamo'),
-      rate: z.number().min(0).max(100).describe('Tasa de interés anual (%)'),
-      term: z.number().min(1).max(360).describe('Plazo en meses')
+      amount: z.number().positive().describe('Loan amount | Monto del préstamo'),
+      rate: z.number().min(0).max(100).describe('Annual interest rate (%) | Tasa de interés anual (%)'),
+      term: z.number().min(1).max(360).describe('Term in months | Plazo en meses')
     },
     async ({ amount, rate, term }) => {
       const monthlyPayment = calculateFrenchPayment(amount, rate, term);
@@ -111,9 +111,9 @@ export function registerLoanTools(server: McpServer): void {
   // Tool: compare-loans
   server.tool(
     'compare-loans',
-    'Comparar múltiples préstamos lado a lado. Útil para elegir la mejor opción.',
+    'Compare multiple loans side by side. Useful for choosing the best option. | Comparar múltiples préstamos lado a lado. Útil para elegir la mejor opción.',
     {
-      loanIds: z.array(z.number()).min(2).max(5).describe('IDs de préstamos a comparar')
+      loanIds: z.array(z.number()).min(2).max(5).describe('Loan IDs to compare | IDs de préstamos a comparar')
     },
     async ({ loanIds }) => {
       const loans = await getLoans();
@@ -124,7 +124,7 @@ export function registerLoanTools(server: McpServer): void {
           content: [{
             type: 'text' as const,
             text: JSON.stringify({
-              error: 'Se necesitan al menos 2 préstamos válidos para comparar',
+              error: 'At least 2 valid loans are required for comparison | Se necesitan al menos 2 préstamos válidos para comparar',
               validIds: loans.map(l => l.id)
             })
           }],
@@ -169,9 +169,9 @@ export function registerLoanTools(server: McpServer): void {
   // Tool: get-loan-requirements
   server.tool(
     'get-loan-requirements',
-    'Obtener los requisitos para solicitar un préstamo específico.',
+    'Get the requirements to apply for a specific loan. | Obtener los requisitos para solicitar un préstamo específico.',
     {
-      loanId: z.number().describe('ID del préstamo')
+      loanId: z.number().describe('Loan ID | ID del préstamo')
     },
     async ({ loanId }) => {
       const loans = await getLoans();
@@ -182,7 +182,7 @@ export function registerLoanTools(server: McpServer): void {
           content: [{
             type: 'text' as const,
             text: JSON.stringify({
-              error: 'Préstamo no encontrado',
+              error: 'Loan not found | Préstamo no encontrado',
               validIds: loans.map(l => ({ id: l.id, name: l.name }))
             })
           }],
@@ -190,32 +190,32 @@ export function registerLoanTools(server: McpServer): void {
         };
       }
 
-      // Generate requirements based on loan type
+      // Generate requirements based on loan type (bilingual)
       const baseRequirements = [
-        'Cédula de identidad uruguaya vigente',
-        'Comprobante de domicilio',
-        'Último recibo de sueldo'
+        'Valid Uruguayan ID card | Cédula de identidad uruguaya vigente',
+        'Proof of address | Comprobante de domicilio',
+        'Latest pay stub | Último recibo de sueldo'
       ];
 
       const additionalRequirements: string[] = [];
 
       if (loan.name.toLowerCase().includes('hipotec')) {
         additionalRequirements.push(
-          'Tasación del inmueble',
-          'Certificado notarial de la propiedad',
-          '3 últimos estados de cuenta bancarios',
-          'Antigüedad laboral mínima: 2 años'
+          'Property appraisal | Tasación del inmueble',
+          'Notarized property certificate | Certificado notarial de la propiedad',
+          'Last 3 bank statements | 3 últimos estados de cuenta bancarios',
+          'Minimum employment history: 2 years | Antigüedad laboral mínima: 2 años'
         );
       } else if (loan.name.toLowerCase().includes('auto')) {
         additionalRequirements.push(
-          'Factura o cotización del vehículo',
-          'Seguro obligatorio',
-          'Antigüedad laboral mínima: 1 año'
+          'Vehicle invoice or quote | Factura o cotización del vehículo',
+          'Mandatory insurance | Seguro obligatorio',
+          'Minimum employment history: 1 year | Antigüedad laboral mínima: 1 año'
         );
       } else {
         additionalRequirements.push(
-          'Clearing bancario limpio',
-          'Antigüedad laboral mínima: 6 meses'
+          'Clean credit history | Clearing bancario limpio',
+          'Minimum employment history: 6 months | Antigüedad laboral mínima: 6 meses'
         );
       }
 
@@ -230,10 +230,10 @@ export function registerLoanTools(server: McpServer): void {
             },
             requirements: {
               documentation: [...baseRequirements, ...additionalRequirements],
-              income: `Ingreso mínimo recomendado: ${Math.round(loan.monthlyPayment * 3).toLocaleString('es-UY')} $U mensuales`,
+              income: `Recommended minimum income | Ingreso mínimo recomendado: ${Math.round(loan.monthlyPayment * 3).toLocaleString('es-UY')} $U monthly | mensuales`,
               approval: {
                 probability: loan.probability,
-                estimatedTime: loan.probability === 'alta' ? '24-48 horas' : '3-5 días hábiles'
+                estimatedTime: loan.probability === 'alta' ? '24-48 hours | horas' : '3-5 business days | días hábiles'
               }
             },
             features: loan.features

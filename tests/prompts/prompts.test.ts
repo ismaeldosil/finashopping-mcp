@@ -129,7 +129,7 @@ describe('Loan Guide Prompt', () => {
 
     const result = handler({ loanType: 'auto', term: '48' });
 
-    expect(result.messages[0].content.text).toContain('48 meses');
+    expect(result.messages[0].content.text).toContain('48 months');
   });
 });
 

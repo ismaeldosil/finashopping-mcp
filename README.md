@@ -7,13 +7,13 @@
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5+-blue.svg)](https://www.typescriptlang.org/)
 
-MCP Server para interactuar con productos financieros uruguayos desde Claude Desktop.
+MCP Server for interacting with Uruguayan financial products from Claude Desktop.
 
-## Instalación Rápida
+## Quick Installation
 
-### Opción 1: npx (recomendado)
+### Option 1: npx (recommended)
 
-Agrega a tu `claude_desktop_config.json`:
+Add to your `claude_desktop_config.json`:
 
 **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
 **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
@@ -29,13 +29,13 @@ Agrega a tu `claude_desktop_config.json`:
 }
 ```
 
-### Opción 2: Instalación global
+### Option 2: Global installation
 
 ```bash
 npm install -g finashopping-mcp
 ```
 
-Luego en `claude_desktop_config.json`:
+Then in `claude_desktop_config.json`:
 
 ```json
 {
@@ -47,7 +47,7 @@ Luego en `claude_desktop_config.json`:
 }
 ```
 
-### Opción 3: Desde código fuente
+### Option 3: From source
 
 ```bash
 git clone https://github.com/ismaeldosil/finashopping-mcp.git
@@ -56,81 +56,81 @@ npm install
 npm run build
 ```
 
-En `claude_desktop_config.json`:
+In `claude_desktop_config.json`:
 
 ```json
 {
   "mcpServers": {
     "finashopping": {
       "command": "node",
-      "args": ["/ruta/a/finashopping-mcp/dist/index.js"]
+      "args": ["/path/to/finashopping-mcp/dist/index.js"]
     }
   }
 }
 ```
 
-## Herramientas Disponibles
+## Available Tools
 
-### Préstamos
+### Loans
 
-| Tool | Descripción |
+| Tool | Description |
 |------|-------------|
-| `search-loans` | Buscar préstamos por monto, plazo y tipo |
-| `calculate-loan-payment` | Calcular cuota mensual (sistema francés) |
-| `compare-loans` | Comparar múltiples préstamos |
-| `get-loan-requirements` | Requisitos para solicitar |
+| `search-loans` | Search loans by amount, term, and type |
+| `calculate-loan-payment` | Calculate monthly payment (French amortization) |
+| `compare-loans` | Compare multiple loans |
+| `get-loan-requirements` | Requirements to apply |
 
-### Tarjetas y Seguros
+### Cards and Insurance
 
-| Tool | Descripción |
+| Tool | Description |
 |------|-------------|
-| `search-credit-cards` | Buscar tarjetas por red y costo |
-| `search-insurances` | Buscar seguros por tipo |
-| `search-guarantees` | Opciones de garantía de alquiler |
-| `get-benefits` | Beneficios y descuentos |
+| `search-credit-cards` | Search cards by network and cost |
+| `search-insurances` | Search insurance by type |
+| `search-guarantees` | Rental guarantee options |
+| `get-benefits` | Benefits and discounts |
 
-## Recursos Disponibles
+## Available Resources
 
-| URI | Descripción |
+| URI | Description |
 |-----|-------------|
-| `finashopping://loans` | Catálogo de préstamos |
-| `finashopping://cards` | Catálogo de tarjetas |
-| `finashopping://insurance` | Catálogo de seguros |
-| `finashopping://institutions` | Instituciones financieras |
-| `finashopping://credit/ranges` | Rangos de score crediticio |
+| `finashopping://loans` | Loan catalog |
+| `finashopping://cards` | Card catalog |
+| `finashopping://insurance` | Insurance catalog |
+| `finashopping://institutions` | Financial institutions |
+| `finashopping://credit/ranges` | Credit score ranges |
 
-## Prompts Disponibles
+## Available Prompts
 
-| Prompt | Descripción |
+| Prompt | Description |
 |--------|-------------|
-| `loan-application-guide` | Guía paso a paso para solicitar préstamo |
-| `improve-credit-score` | Consejos para mejorar score |
-| `product-comparison` | Comparación detallada de productos |
-| `financial-faq` | FAQ sobre finanzas en Uruguay |
+| `loan-application-guide` | Step-by-step guide to apply for a loan |
+| `improve-credit-score` | Tips to improve your score |
+| `product-comparison` | Detailed product comparison |
+| `financial-faq` | FAQ about finances in Uruguay |
 
-## Ejemplos de Uso
+## Usage Examples
 
-Una vez instalado, en Claude Desktop puedes preguntar:
+Once installed, in Claude Desktop you can ask:
 
-- "Busca préstamos personales de hasta $100,000"
-- "Calcula la cuota de un préstamo de $50,000 a 24 meses con tasa del 28%"
-- "Compara las tarjetas de crédito sin costo anual"
-- "¿Qué necesito para solicitar un préstamo hipotecario?"
-- "Dame consejos para mejorar mi score crediticio"
+- "Search for personal loans up to $100,000"
+- "Calculate the payment for a $50,000 loan at 24 months with 28% rate"
+- "Compare credit cards with no annual fee"
+- "What do I need to apply for a mortgage?"
+- "Give me tips to improve my credit score"
 
-## Variables de Entorno
+## Environment Variables
 
-| Variable | Default | Descripción |
+| Variable | Default | Description |
 |----------|---------|-------------|
-| `FINASHOPPING_API_URL` | `https://finashopping-backend-production.up.railway.app` | URL del backend API |
+| `FINASHOPPING_API_URL` | `https://finashopping-backend-production.up.railway.app` | Backend API URL |
 
-## Desarrollo
+## Development
 
 ```bash
-# Instalar dependencias
+# Install dependencies
 npm install
 
-# Desarrollo
+# Development
 npm run dev
 
 # Build
@@ -143,50 +143,50 @@ npm test
 npm run type-check
 ```
 
-## Instituciones Soportadas
+## Supported Institutions
 
-### Bancos
-- BROU (Banco República)
+### Banks
+- BROU (Banco Republica)
 - Santander Uruguay
-- Itaú Uruguay
+- Itau Uruguay
 - Scotiabank Uruguay
 - BBVA Uruguay
 
-### Seguros
+### Insurance
 - BSE (Banco de Seguros del Estado)
 - Sura Uruguay
 - Mapfre Uruguay
 
-### Redes de Pago
+### Payment Networks
 - OCA
 - Visa
 - Mastercard
 
 ## Troubleshooting
 
-### El server no aparece en Claude Desktop
+### Server doesn't appear in Claude Desktop
 
-1. Verifica que el archivo `claude_desktop_config.json` esté en la ubicación correcta
-2. Reinicia Claude Desktop completamente
-3. Verifica que Node.js 20+ esté instalado
+1. Verify that `claude_desktop_config.json` is in the correct location
+2. Restart Claude Desktop completely
+3. Verify that Node.js 20+ is installed
 
-### Error de conexión al backend
+### Backend connection error
 
-1. Verifica conectividad a internet
-2. El backend está en: `https://finashopping-backend-production.up.railway.app/health`
+1. Check internet connectivity
+2. Backend is at: `https://finashopping-backend-production.up.railway.app/health`
 
-### Ver logs del MCP Server
+### View MCP Server logs
 
-Los logs se escriben a stderr. En desarrollo puedes verlos en la terminal.
+Logs are written to stderr. In development you can see them in the terminal.
 
-## Licencia
+## License
 
 MIT
 
 ## URLs
 
-| Servicio | URL |
-|----------|-----|
+| Service | URL |
+|---------|-----|
 | Frontend | https://finashopping-frontend.vercel.app |
 | Backend API | https://finashopping-backend-production.up.railway.app |
 | MCP Server | https://finashopping-mcp-production.up.railway.app |
