@@ -1,6 +1,31 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
-import { insurances, guarantees, benefits } from '../data/test-data.js';
+import { fetchInsurances, fetchGuarantees, fetchBenefits } from '../api/client.js';
+import type { Insurance, Guarantee, Benefit } from '../api/types.js';
+
+/**
+ * Fetch insurances from API
+ */
+async function getInsurances(): Promise<Insurance[]> {
+  const response = await fetchInsurances();
+  return response.insurances;
+}
+
+/**
+ * Fetch guarantees from API
+ */
+async function getGuarantees(): Promise<Guarantee[]> {
+  const response = await fetchGuarantees();
+  return response.guarantees;
+}
+
+/**
+ * Fetch benefits from API
+ */
+async function getBenefits(): Promise<Benefit[]> {
+  const response = await fetchBenefits();
+  return response.benefits;
+}
 
 export function registerInsuranceTools(server: McpServer): void {
   // Tool: search-insurances
@@ -11,6 +36,7 @@ export function registerInsuranceTools(server: McpServer): void {
       type: z.string().optional().describe('Tipo de seguro (vida, auto, hogar)')
     },
     async ({ type }) => {
+      const insurances = await getInsurances();
       let filteredInsurances = [...insurances];
 
       if (type) {
@@ -39,6 +65,7 @@ export function registerInsuranceTools(server: McpServer): void {
     'Buscar opciones de garantía de alquiler disponibles en Uruguay.',
     {},
     async () => {
+      const guarantees = await getGuarantees();
       return {
         content: [{
           type: 'text' as const,
@@ -60,6 +87,7 @@ export function registerInsuranceTools(server: McpServer): void {
       category: z.string().optional().describe('Categoría de beneficio (Alimentación, Entretenimiento, Servicios, Combustible)')
     },
     async ({ category }) => {
+      const benefits = await getBenefits();
       let filteredBenefits = [...benefits];
 
       if (category) {
