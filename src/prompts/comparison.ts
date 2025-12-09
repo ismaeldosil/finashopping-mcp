@@ -4,13 +4,13 @@ import { z } from 'zod';
 export function registerComparisonPrompt(server: McpServer): void {
   server.prompt(
     'product-comparison',
-    'Comparación detallada de productos financieros uruguayos',
+    'Detailed comparison of Uruguayan financial products | Comparación detallada de productos financieros uruguayos',
     {
-      productType: z.string().describe('Tipo de producto: préstamos, tarjetas, seguros'),
-      priorities: z.string().optional().describe('Qué priorizas: menor tasa, menor cuota, más beneficios')
+      productType: z.string().describe('Product type: loans, cards, insurance | Tipo de producto: préstamos, tarjetas, seguros'),
+      priorities: z.string().optional().describe('What you prioritize: lowest rate, lowest payment, more benefits | Qué priorizas: menor tasa, menor cuota, más beneficios')
     },
     ({ productType, priorities }) => {
-      const prioritiesStr = priorities ? `\nPriorizo: ${priorities}` : '';
+      const prioritiesStr = priorities ? `\nI prioritize | Priorizo: ${priorities}` : '';
 
       let toolSuggestion = '';
       let resourceSuggestion = '';
@@ -42,20 +42,20 @@ export function registerComparisonPrompt(server: McpServer): void {
           role: 'user',
           content: {
             type: 'text',
-            text: `Necesito una comparación detallada de ${productType} en Uruguay.${prioritiesStr}
+            text: `I need a detailed comparison of ${productType} in Uruguay. | Necesito una comparación detallada de ${productType} en Uruguay.${prioritiesStr}
 
-Por favor:
-1. Lee el resource ${resourceSuggestion} para ver el catálogo completo
-2. Usa ${toolSuggestion} para buscar opciones
-3. Crea una tabla comparativa clara
-4. Destaca pros y contras de cada opción
-5. Recomienda la mejor opción según mis prioridades
+Please | Por favor:
+1. Read the resource ${resourceSuggestion} to see the complete catalog | Lee el resource ${resourceSuggestion} para ver el catálogo completo
+2. Use ${toolSuggestion} to search for options | Usa ${toolSuggestion} para buscar opciones
+3. Create a clear comparison table | Crea una tabla comparativa clara
+4. Highlight pros and cons | Destaca pros y contras
+5. Recommend the best option | Recomienda la mejor opción
 
-Incluye información de:
-- Instituciones uruguayas (BROU, Santander, Itaú, etc.)
-- Costos y tasas
-- Requisitos
-- Beneficios adicionales`
+Include information about | Incluye información de:
+- Uruguayan institutions (BROU, Santander, Itau, etc.) | Instituciones uruguayas
+- Costs and rates | Costos y tasas
+- Requirements | Requisitos
+- Additional benefits | Beneficios adicionales`
           }
         }]
       };

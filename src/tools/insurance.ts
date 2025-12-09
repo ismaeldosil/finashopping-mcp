@@ -31,9 +31,9 @@ export function registerInsuranceTools(server: McpServer): void {
   // Tool: search-insurances
   server.tool(
     'search-insurances',
-    'Buscar seguros disponibles en Uruguay. Incluye seguros de vida, auto, hogar y más.',
+    'Search available insurance in Uruguay. Includes life, auto, home insurance and more. | Buscar seguros disponibles en Uruguay. Incluye seguros de vida, auto, hogar y más.',
     {
-      type: z.string().optional().describe('Tipo de seguro (vida, auto, hogar)')
+      type: z.string().optional().describe('Insurance type (life, auto, home) | Tipo de seguro (vida, auto, hogar)')
     },
     async ({ type }) => {
       const insurances = await getInsurances();
@@ -62,7 +62,7 @@ export function registerInsuranceTools(server: McpServer): void {
   // Tool: search-guarantees
   server.tool(
     'search-guarantees',
-    'Buscar opciones de garantía de alquiler disponibles en Uruguay.',
+    'Search available rental guarantee options in Uruguay. | Buscar opciones de garantía de alquiler disponibles en Uruguay.',
     {},
     async () => {
       const guarantees = await getGuarantees();
@@ -72,7 +72,7 @@ export function registerInsuranceTools(server: McpServer): void {
           text: JSON.stringify({
             guarantees,
             count: guarantees.length,
-            tip: 'Las garantías de alquiler son alternativas al depósito tradicional para arrendar viviendas en Uruguay.'
+            tip: 'Rental guarantees are alternatives to the traditional deposit for renting homes in Uruguay. | Las garantías de alquiler son alternativas al depósito tradicional para arrendar viviendas en Uruguay.'
           }, null, 2)
         }]
       };
@@ -82,9 +82,9 @@ export function registerInsuranceTools(server: McpServer): void {
   // Tool: get-benefits
   server.tool(
     'get-benefits',
-    'Obtener beneficios y descuentos disponibles para usuarios de productos financieros.',
+    'Get available benefits and discounts for financial product users. | Obtener beneficios y descuentos disponibles para usuarios de productos financieros.',
     {
-      category: z.string().optional().describe('Categoría de beneficio (Alimentación, Entretenimiento, Servicios, Combustible)')
+      category: z.string().optional().describe('Benefit category (Food, Entertainment, Services, Fuel) | Categoría de beneficio (Alimentación, Entretenimiento, Servicios, Combustible)')
     },
     async ({ category }) => {
       const benefits = await getBenefits();
