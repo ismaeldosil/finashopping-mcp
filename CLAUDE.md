@@ -36,7 +36,7 @@ npm run lint         # ESLint
 npm run type-check   # TypeScript check
 ```
 
-## Estructura del Proyecto
+## Project Structure
 
 ```
 finashopping-mcp/
@@ -44,34 +44,55 @@ finashopping-mcp/
 │   ├── index.ts              # Entry point (stdio transport)
 │   ├── server.ts             # MCP Server setup
 │   ├── tools/                # MCP Tools
-│   │   ├── loans.ts          # search-loans, calculate-loan-payment
-│   │   ├── cards.ts          # search-credit-cards
-│   │   ├── insurance.ts      # search-insurances
-│   │   ├── calculator.ts     # Calculadoras financieras
+│   │   ├── loans.ts          # search-loans, calculate-loan-payment, compare-loans
+│   │   ├── cards.ts          # search-credit-cards, get-card-details
+│   │   ├── insurance.ts      # search-insurances, search-guarantees, get-benefits
 │   │   └── index.ts
 │   ├── resources/            # MCP Resources
-│   │   ├── catalogs.ts       # Catálogos de productos
-│   │   ├── institutions.ts   # Instituciones financieras
-│   │   ├── credit.ts         # Info de crédito
+│   │   ├── catalogs.ts       # loans, cards, insurance, guarantees, benefits
+│   │   ├── institutions.ts   # institutions, credit-ranges, about
 │   │   └── index.ts
 │   ├── prompts/              # MCP Prompts
-│   │   ├── loan-guide.ts     # Guía de solicitud
-│   │   ├── credit-tips.ts    # Tips de crédito
+│   │   ├── loan-guide.ts     # loan-application-guide
+│   │   ├── credit-tips.ts    # improve-credit-score
+│   │   ├── comparison.ts     # product-comparison
+│   │   ├── faq.ts            # financial-faq
 │   │   └── index.ts
 │   ├── api/                  # Backend API client
-│   │   ├── client.ts         # Axios client
-│   │   └── types.ts          # Response types
-│   └── utils/
-│       └── validation.ts     # Zod schemas compartidos
+│   │   ├── client.ts         # Axios client with JWT auth
+│   │   ├── types.ts          # Response types
+│   │   └── index.ts
+│   ├── utils/                # Utility functions
+│   │   ├── calculations.ts   # French amortization calculations
+│   │   ├── filters.ts        # Loan/card/insurance filters
+│   │   ├── requirements.ts   # Requirements generation
+│   │   └── index.ts
+│   └── data/
+│       └── test-data.ts      # Static data (institutions, credit ranges)
 ├── tests/
+│   ├── api/
+│   │   └── client.test.ts
 │   ├── tools/
+│   │   └── tools.test.ts
 │   ├── resources/
+│   │   └── resources.test.ts
+│   ├── prompts/
+│   │   └── prompts.test.ts
+│   ├── utils/
+│   │   ├── calculations.test.ts
+│   │   ├── filters.test.ts
+│   │   └── requirements.test.ts
+│   ├── mocks/
+│   │   └── api.ts
+│   ├── server.test.ts
 │   └── setup.ts
-├── examples/
-│   └── claude-desktop-config.json
+├── .github/
+│   └── workflows/
+│       └── ci.yml            # GitHub Actions CI
 ├── package.json
 ├── tsconfig.json
 ├── vitest.config.ts
+├── .eslintrc.json
 └── README.md
 ```
 
@@ -175,12 +196,30 @@ npm test
 # Watch mode
 npm run test:watch
 
-# Coverage
+# Coverage (requires 90%+ for lines, functions, statements; 80%+ for branches)
 npm run test:coverage
 
-# Test específico
+# Test specific file
 npm test -- tools/loans
 ```
+
+### Coverage Thresholds
+
+| Metric | Threshold | Current |
+|--------|-----------|---------|
+| Lines | 90% | 99.81% |
+| Functions | 90% | 100% |
+| Branches | 80% | 98.61% |
+| Statements | 90% | 99.81% |
+
+### CI/CD
+
+GitHub Actions runs on every push/PR to `main` and `develop`:
+- Lint check
+- Type check
+- Tests with coverage (Node.js 20.x and 22.x)
+- Codecov upload
+- Build verification
 
 ## Instalación en Claude Desktop
 
@@ -236,4 +275,4 @@ git checkout develop && git merge main && git push
 
 ---
 
-*Última actualización: 2025-12-05*
+*Last updated: 2025-12-09*
