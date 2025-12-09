@@ -42,7 +42,7 @@ export function registerCatalogResources(server: McpServer): void {
     'loans',
     'finashopping://loans',
     {
-      description: 'Lista completa de préstamos disponibles en instituciones financieras uruguayas',
+      description: 'Complete list of loans available from Uruguayan financial institutions | Lista completa de préstamos disponibles en instituciones financieras uruguayas',
       mimeType: 'application/json'
     },
     async (uri) => {
@@ -62,7 +62,7 @@ export function registerCatalogResources(server: McpServer): void {
     'cards',
     'finashopping://cards',
     {
-      description: 'Tarjetas de crédito disponibles en Uruguay',
+      description: 'Credit cards available in Uruguay | Tarjetas de crédito disponibles en Uruguay',
       mimeType: 'application/json'
     },
     async (uri) => {
@@ -82,7 +82,7 @@ export function registerCatalogResources(server: McpServer): void {
     'insurance',
     'finashopping://insurance',
     {
-      description: 'Productos de seguros disponibles en Uruguay',
+      description: 'Insurance products available in Uruguay | Productos de seguros disponibles en Uruguay',
       mimeType: 'application/json'
     },
     async (uri) => {
@@ -102,7 +102,7 @@ export function registerCatalogResources(server: McpServer): void {
     'guarantees',
     'finashopping://guarantees',
     {
-      description: 'Opciones de garantía de alquiler en Uruguay',
+      description: 'Rental guarantee options in Uruguay | Opciones de garantía de alquiler en Uruguay',
       mimeType: 'application/json'
     },
     async (uri) => {
@@ -122,7 +122,7 @@ export function registerCatalogResources(server: McpServer): void {
     'benefits',
     'finashopping://benefits',
     {
-      description: 'Programa de beneficios disponibles',
+      description: 'Available benefits program | Programa de beneficios disponibles',
       mimeType: 'application/json'
     },
     async (uri) => {

@@ -7,7 +7,7 @@ export function registerInstitutionResources(server: McpServer): void {
     'institutions',
     'finashopping://institutions',
     {
-      description: 'Lista de bancos, aseguradoras y redes de pago en Uruguay',
+      description: 'List of banks, insurance companies, and payment networks in Uruguay | Lista de bancos, aseguradoras y redes de pago en Uruguay',
       mimeType: 'application/json'
     },
     async (uri) => ({
@@ -24,7 +24,7 @@ export function registerInstitutionResources(server: McpServer): void {
     'credit-ranges',
     'finashopping://credit/ranges',
     {
-      description: 'Rangos y clasificaciones del score crediticio en Uruguay',
+      description: 'Credit score ranges and classifications in Uruguay | Rangos y clasificaciones del score crediticio en Uruguay',
       mimeType: 'application/json'
     },
     async (uri) => ({
@@ -33,7 +33,7 @@ export function registerInstitutionResources(server: McpServer): void {
         mimeType: 'application/json',
         text: JSON.stringify({
           ranges: creditScoreRanges,
-          description: 'El score crediticio en Uruguay va de 300 a 850 puntos. Un score más alto indica mejor historial crediticio y mayor probabilidad de aprobación de créditos.'
+          description: 'Credit scores in Uruguay range from 300 to 850 points. A higher score indicates better credit history and higher probability of credit approval. | El score crediticio en Uruguay va de 300 a 850 puntos. Un score más alto indica mejor historial crediticio y mayor probabilidad de aprobación de créditos.'
         }, null, 2)
       }]
     })
@@ -44,7 +44,7 @@ export function registerInstitutionResources(server: McpServer): void {
     'about',
     'finashopping://about',
     {
-      description: 'Información sobre la plataforma FinaShopping',
+      description: 'Information about the FinaShopping platform | Información sobre la plataforma FinaShopping',
       mimeType: 'application/json'
     },
     async (uri) => ({
@@ -53,13 +53,13 @@ export function registerInstitutionResources(server: McpServer): void {
         mimeType: 'application/json',
         text: JSON.stringify({
           name: 'FinaShopping',
-          description: 'Plataforma de comparación de productos financieros uruguayos',
+          description: 'Uruguayan financial products comparison platform | Plataforma de comparación de productos financieros uruguayos',
           features: [
-            'Comparación de préstamos de múltiples instituciones',
-            'Catálogo de tarjetas de crédito',
-            'Seguros y garantías de alquiler',
-            'Calculadora financiera',
-            'Información de score crediticio'
+            'Loan comparison from multiple institutions | Comparación de préstamos de múltiples instituciones',
+            'Credit card catalog | Catálogo de tarjetas de crédito',
+            'Insurance and rental guarantees | Seguros y garantías de alquiler',
+            'Financial calculator | Calculadora financiera',
+            'Credit score information | Información de score crediticio'
           ],
           coverage: 'Uruguay',
           institutions: {
