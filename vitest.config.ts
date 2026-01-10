@@ -16,7 +16,7 @@ export default defineConfig({
         'src/http.ts',
         'src/api/client.ts', // API client requires real authentication
         'src/api/types.ts',  // Type definitions only
-        'src/tools/*.ts',    // Tool handlers require API mocking
+        // Tools now have execution tests with mocked API
         'src/resources/*.ts', // Resource handlers require API mocking
       ],
       thresholds: {
